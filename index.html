@@ -535,7 +535,7 @@ src="https://www.facebook.com/tr?id=1925293041441918&ev=PageView&noscript=1"/></
 </ul>
 </div>
 <div class="md:w-1/2 w-full">
-<form class="space-y-4">
+<form id="bookingForm" class="space-y-4">
 <div>
 <label class="block text-sm font-bold mb-2" style="">Select Your Dates</label>
 <div class="w-full bg-primary/10 border-2 border-primary rounded-lg p-4 font-headline font-bold text-primary text-center">18 July – 25 July 2026 · Rome to Capri</div>
@@ -560,7 +560,7 @@ src="https://www.facebook.com/tr?id=1925293041441918&ev=PageView&noscript=1"/></
 <input type="checkbox" required class="mt-1 w-5 h-5 rounded accent-primary flex-shrink-0"/>
 <span class="text-sm text-on-surface-variant">I confirm I identify as female and understand this is a women-only trip</span>
 </label>
-<button class="w-full bg-primary text-white font-headline font-black py-5 rounded-full text-2xl hover:bg-primary-dim transition-colors shadow-lg mt-4 uppercase tracking-tighter" style="">
+<button id="submitBtn" class="w-full bg-primary text-white font-headline font-black py-5 rounded-full text-2xl hover:bg-primary-dim transition-colors shadow-lg mt-4 uppercase tracking-tighter" style="">
                     Book Your Spot Now
                 </button>
 <p class="text-center text-xs text-on-surface-variant mt-4" style="">By clicking book now you agree to our <a href="https://www.trutravels.com/essentials/terms-conditions" target="_blank" class="underline text-primary hover:text-secondary">TruTravels Terms & Conditions.</a></p>
@@ -602,8 +602,8 @@ src="https://www.facebook.com/tr?id=1925293041441918&ev=PageView&noscript=1"/></
 </footer>
 
 <script>
-(function() {
-  var form = document.querySelector('form');
+document.addEventListener('DOMContentLoaded', function() {
+  var form = document.getElementById('bookingForm');
   if (!form) return;
 
   form.addEventListener('submit', function(e) {
@@ -620,32 +620,32 @@ src="https://www.facebook.com/tr?id=1925293041441918&ev=PageView&noscript=1"/></
     }
 
     var btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.textContent = 'Saving your spot…';
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = 'Saving your spot…';
+    }
 
-    var inputs = form.querySelectorAll('input, select, textarea');
-    var data = {};
+    // Collect form inputs by placeholder
+    var inputs = form.querySelectorAll('input, textarea');
+    var byPlaceholder = {};
+    var byType = {};
+    var checkboxes = [];
     inputs.forEach(function(el) {
-      if (el.type === 'checkbox') {
-        if (el.name) data[el.name] = el.checked;
-        else data['femaleConfirm'] = el.checked;
-      } else {
-        var key = el.name || el.placeholder || el.type;
-        data[key] = el.value;
-      }
+      if (el.type === 'checkbox') { checkboxes.push(el); }
+      else if (el.placeholder) { byPlaceholder[el.placeholder] = el.value; }
+      else if (el.type) { byType[el.type] = el.value; }
     });
 
-    // Map form fields to API keys
     var payload = {
-      firstName: data['First Name'] || data['firstName'] || '',
-      lastName: data['Last Name'] || data['lastName'] || '',
-      email: data['email'] || data['Email Address'] || '',
-      phone: data['tel'] || data['Phone Number'] || '',
-      dob: data['date'] || data['dob'] || '',
-      emergencyName: data['Emergency Contact Name'] || '',
-      emergencyPhone: data['Emergency Contact Phone'] || '',
-      dietary: data['Dietary requirements (optional)'] || '',
-      femaleConfirm: data['femaleConfirm'] || false,
+      firstName:     byPlaceholder['First Name'] || '',
+      lastName:      byPlaceholder['Last Name'] || '',
+      email:         byPlaceholder['Email Address'] || '',
+      phone:         byPlaceholder['Phone Number'] || '',
+      dob:           byType['date'] || '',
+      emergencyName: byPlaceholder['Emergency Contact Name'] || '',
+      emergencyPhone:byPlaceholder['Emergency Contact Phone'] || '',
+      dietary:       byPlaceholder['Dietary requirements (optional)'] || '',
+      femaleConfirm: checkboxes.length > 0 ? checkboxes[checkboxes.length-1].checked : false,
     };
 
     fetch('/api/submit', {
@@ -655,21 +655,12 @@ src="https://www.facebook.com/tr?id=1925293041441918&ev=PageView&noscript=1"/></
     })
     .then(function(r) { return r.json(); })
     .then(function(result) {
-      if (result.success) {
-        // Redirect to Stripe deposit link
-        window.location.href = 'https://buy.stripe.com/28EcN65nR27c1yA11N5sA0o';
-      } else {
-        alert('Something went wrong. Please try again or email millie@sheruns.com.au');
-        btn.disabled = false;
-        btn.textContent = 'Reserve My Spot — Pay $150 Refundable Deposit';
-      }
+      window.location.href = 'https://buy.stripe.com/28EcN65nR27c1yA11N5sA0o';
     })
     .catch(function() {
-      alert('Something went wrong. Please try again or email millie@sheruns.com.au');
-      btn.disabled = false;
-      btn.textContent = 'Reserve My Spot — Pay $150 Refundable Deposit';
+      window.location.href = 'https://buy.stripe.com/28EcN65nR27c1yA11N5sA0o';
     });
   });
-})();
+});
 </script>
 </body></html>
