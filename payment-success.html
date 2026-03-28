@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>You're Booked! — She Runs Italy</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { headline: ['"Plus Jakarta Sans"', 'sans-serif'] },
+        colors: { primary: '#5d3dd5', secondary: '#ac0088' }
+      }
+    }
+  }
+</script>
+<!-- Facebook Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', 'PIXEL_ID_HERE');
+fbq('track', 'PageView');
+// Fire Purchase event — $150 deposit
+fbq('track', 'Purchase', {
+  value: 150,
+  currency: 'USD',
+  content_name: 'She Runs Italy — 18-25 July 2026',
+  content_type: 'product'
+});
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=PIXEL_ID_HERE&ev=PageView&noscript=1"/></noscript>
+</head>
+<body class="bg-gradient-to-br from-[#f0ecff] to-[#fce4ff] min-h-screen flex items-center justify-center p-6">
+
+<div class="max-w-lg w-full text-center">
+
+  <!-- Checkmark -->
+  <div class="w-24 h-24 bg-primary rounded-full flex items-center justify-center mx-auto mb-8 shadow-[0_0_60px_rgba(93,61,213,0.4)]">
+    <svg class="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+    </svg>
+  </div>
+
+  <!-- Flag -->
+  <div class="text-5xl mb-4">🇮🇹</div>
+
+  <h1 class="font-headline font-black text-4xl text-[#36274e] mb-4">You're in! Benvenuta!</h1>
+  <p class="text-[#6b7280] text-lg mb-2">Your $150 deposit has been received.</p>
+  <p class="text-[#6b7280] mb-8">Welcome to the She Runs Italy trip — 18–25 July 2026. We'll be in touch shortly with your full booking confirmation and next steps.</p>
+
+  <!-- Trip summary pill -->
+  <div class="bg-white rounded-2xl shadow-lg p-6 mb-8 text-left">
+    <h2 class="font-headline font-bold text-[#36274e] mb-4">Your booking summary</h2>
+    <div class="space-y-2 text-sm text-[#6b7280]">
+      <div class="flex justify-between"><span>Trip</span><span class="font-semibold text-[#36274e]">She Runs Italy</span></div>
+      <div class="flex justify-between"><span>Dates</span><span class="font-semibold text-[#36274e]">18–25 July 2026</span></div>
+      <div class="flex justify-between"><span>Route</span><span class="font-semibold text-[#36274e]">Rome → Capri</span></div>
+      <div class="flex justify-between"><span>Total price</span><span class="font-semibold text-[#36274e]">$1,599 USD</span></div>
+      <div class="flex justify-between border-t pt-2 mt-2"><span>Deposit paid</span><span class="font-bold text-primary">$150 USD (refundable)</span></div>
+    </div>
+  </div>
+
+  <!-- What's next -->
+  <div class="bg-white rounded-2xl shadow-lg p-6 mb-8 text-left">
+    <h2 class="font-headline font-bold text-[#36274e] mb-4">What happens next</h2>
+    <div class="space-y-3 text-sm text-[#6b7280]">
+      <div class="flex gap-3"><span class="w-6 h-6 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">1</span><span>You'll receive a confirmation email within 24 hours</span></div>
+      <div class="flex gap-3"><span class="w-6 h-6 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">2</span><span>One week before the trip, your guide will send a WhatsApp group link</span></div>
+      <div class="flex gap-3"><span class="w-6 h-6 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">3</span><span>The remaining balance ($1,449 USD) will be due 60 days before departure</span></div>
+    </div>
+  </div>
+
+  <p class="text-sm text-[#9ca3af]">Questions? Email <a href="mailto:millie@sheruns.com.au" class="text-primary underline">millie@sheruns.com.au</a></p>
+
+  <a href="/" class="inline-block mt-6 text-primary font-bold hover:underline text-sm">← Back to trip page</a>
+
+</div>
+
+</body>
+</html>

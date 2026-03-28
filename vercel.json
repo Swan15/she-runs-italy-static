@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/payment-success", "destination": "/payment-success.html" }
+  ]
+}
